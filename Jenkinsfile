@@ -14,7 +14,7 @@ pipeline {
          stage('Build') {
             steps {
                 sh '''
-                docker build -t cuteleilei/python-api -t cuteleilei/python-api:v${BUILD_VERSION}
+                docker build -t cuteleilei/python-api -t cuteleilei/python-api:v${VERSION_NUMBER}
                 '''
            }
         }
@@ -22,7 +22,7 @@ pipeline {
         stage('Push') {
             steps {
                 sh '''
-                docker push -t cuteleilei/python-api -t cuteleilei/python-api:v${BUILD_VERSION}
+                docker push -t cuteleilei/python-api -t cuteleilei/python-api:v${VERSION_NUMBER}
                 '''
            }
         }
