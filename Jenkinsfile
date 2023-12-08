@@ -4,8 +4,9 @@ pipeline {
          stage('Init') {
             steps {
                 sh '''
-                docker network create jenk-network || echo "Network Already Exists"
+                
                 ssh -i ~/.ssh/id_rsa jenkins@10.200.0.5 << EOF
+                docker network create jenk-network || echo "Network Already Exists"
                 docker stop flask-app || echo "not running"
                 docker stop nginxcontainer || echo "nginx Not Running"
                 docker rm flask-app || echo "not running"
