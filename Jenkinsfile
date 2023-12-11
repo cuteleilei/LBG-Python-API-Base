@@ -3,7 +3,7 @@ pipeline {
     stages {
          stage('Init') {
             steps {
-                scripts {
+                script {
                     if (env.GIT_BRANCH == 'origin/main'){
                         sh '''
                         ssh -i ~/.ssh/id_rsa jenkins@10.200.0.5 << EOF
@@ -33,7 +33,6 @@ pipeline {
                     '''
                 }
 
-
                 }
                 
            }
@@ -41,7 +40,7 @@ pipeline {
 
          stage('Build') {
             steps {
-                scripts { if (env.GIT_BRANCH == 'origin/main'){
+                script { if (env.GIT_BRANCH == 'origin/main'){
                     
                     sh '''
                     echo "Build not required in main"
@@ -65,7 +64,7 @@ pipeline {
 
         stage('Push') {
             steps {
-                scripts { if (env.GIT_BRANCH == 'origin/main'){
+                script { if (env.GIT_BRANCH == 'origin/main'){
                     sh '''
                         echo "Push not required in main"
                         '''
@@ -89,8 +88,7 @@ pipeline {
         }
         stage('Deploy') {
             steps { 
-                scripts 
-                { if (env.GIT_BRANCH == 'origin/main'){
+                script { if (env.GIT_BRANCH == 'origin/main'){
                 sh '''
                 ssh -i ~/.ssh/id_rsa jenkins@10.200.0.5 << EOF
                 docker run -d --name flask-app --network jenk-network  cuteleilei/python-api
@@ -117,7 +115,7 @@ pipeline {
 
         stage('CleanUp') {
             steps {
-                scripts {
+                script {
                     if (env.GIT_BRANCH == 'origin/dev'){
                         sh '''
                         docker rmi cuteleilei/python-api           
