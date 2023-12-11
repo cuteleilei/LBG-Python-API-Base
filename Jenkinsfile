@@ -4,13 +4,15 @@ pipeline {
          stage('Init') {
             steps {
                 sh '''
-                
+            
                 ssh -i ~/.ssh/id_rsa jenkins@10.200.0.5 << EOF
                 docker network create jenk-network || echo "Network Already Exists"
                 docker stop flask-app || echo "not running"
                 docker stop nginxcontainer || echo "nginx Not Running"
                 docker rm flask-app || echo "not running"
                 docker rm nginxcontainer || echo "nginx Not Running"
+                docker rmi cuteleilei/python-api || echo "nginx Not Running"
+                docker rmi cuteleilei/mynginx || echo "nginx Not Running"
                 '''
            }
         }
@@ -38,7 +40,7 @@ pipeline {
             steps {
                 sh '''
                 ssh -i ~/.ssh/id_rsa jenkins@10.200.0.5 << EOF
-                docker run -d --name flask-app cuteleilei/python-api
+                docker run -d --name flask-app --network jenk-network  cuteleilei/python-api
                 docker run -d -p 80:80 --name nginxcontainer --network jenk-network cuteleilei/mynginx
                 '''
             }
