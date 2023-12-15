@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: task1
-        image: cuteleilei/flask-app:latest
+        image: cuteleilei/lbgflask:latest
         imagePullPolicy: Always
         ports: 
         - containerPort: 5500
