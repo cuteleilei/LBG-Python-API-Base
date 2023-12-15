@@ -23,7 +23,7 @@ spec:
         image: cuteleilei/lbgflask:latest
         imagePullPolicy: Always
         ports: 
-        - containerPort: 5500
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -35,5 +35,5 @@ spec:
     app: task1
   ports:
   - protocol: TCP
-    port: 5500 
-    targetPort: 5500
+    port: 8080 
+    targetPort: 8080
